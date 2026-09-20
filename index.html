@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TaskFlow — Smart Task Manager</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <span>✦</span> TaskFlow
+        </div>
+
+        <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">
+            ☾
+        </button>
+    </header>
+
+    <main class="app-container">
+
+        <!-- Hero -->
+        <section class="hero">
+            <div>
+                <p class="eyebrow">PERSONAL PRODUCTIVITY</p>
+
+                <h1>
+                    Organize your work.<br>
+                    <span>Get things done.</span>
+                </h1>
+
+                <p class="hero-text">
+                    A simple and modern task manager designed to help
+                    you stay focused and productive.
+                </p>
+            </div>
+        </section>
+
+        <!-- Dashboard -->
+        <section class="dashboard">
+
+            <div class="stats">
+
+                <div class="stat-card">
+                    <span class="stat-label">Total Tasks</span>
+                    <strong id="totalTasks">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-label">Completed</span>
+                    <strong id="completedTasks">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-label">Pending</span>
+                    <strong id="pendingTasks">0</strong>
+                </div>
+
+            </div>
+
+
+            <!-- Productivity Progress -->
+
+            <div class="progress-card">
+
+                <div class="progress-header">
+
+                    <div>
+                        <p class="eyebrow">PRODUCTIVITY</p>
+                        <h2>Today's Progress</h2>
+                    </div>
+
+                    <strong id="progressPercent">0%</strong>
+
+                </div>
+
+                <div class="progress-bar">
+                    <div
+                        class="progress-fill"
+                        id="progressFill"
+                    ></div>
+                </div>
+
+                <p class="progress-text" id="progressText">
+                    Start completing tasks to track your progress.
+                </p>
+
+            </div>
+
+
+            <!-- Add Task -->
+
+            <div class="task-form-card">
+
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">TASK MANAGEMENT</p>
+                        <h2>Add a new task</h2>
+                    </div>
+                </div>
+
+                <form id="taskForm">
+
+                    <div class="input-group">
+                        <label for="taskInput">Task</label>
+
+                        <input
+                            type="text"
+                            id="taskInput"
+                            placeholder="e.g. Complete portfolio project"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="form-row">
+
+                        <div class="input-group">
+                            <label for="priority">Priority</label>
+
+                            <select id="priority">
+                                <option value="low">Low</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="dueDate">Due Date</label>
+
+                            <input
+                                type="date"
+                                id="dueDate"
+                            >
+                        </div>
+
+
+                        <div class="input-group">
+                            <label for="category">Category</label>
+
+                            <select id="category">
+                                <option value="work">Work</option>
+                                <option value="study">Study</option>
+                                <option value="personal">Personal</option>
+                                <option value="other" selected>Other</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+
+                    <button type="submit" class="add-btn">
+                        + Add Task
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- Tasks -->
+
+            <div class="tasks-section">
+
+                <div class="tasks-header">
+
+                    <div>
+                        <p class="eyebrow">YOUR WORK</p>
+                        <h2>My Tasks</h2>
+                    </div>
+
+
+                    <div class="search-box">
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Search tasks..."
+                        >
+                    </div>
+                     <div class="sort-box">
+    <select id="sortTasks">
+        <option value="newest">Newest First</option>
+        <option value="oldest">Oldest First</option>
+        <option value="priority">Priority</option>
+        <option value="dueDate">Due Date</option>
+    </select>
+</div>
+
+                    <div class="filters">
+
+                        <button class="filter-btn active" data-filter="all">
+                            All
+                        </button>
+
+                        <button class="filter-btn" data-filter="pending">
+                            Pending
+                        </button>
+
+                        <button class="filter-btn" data-filter="completed">
+                            Completed
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div id="taskList" class="task-list">
+
+                    <div class="empty-state" id="emptyState">
+
+                        <div class="empty-icon">✓</div>
+
+                        <h3>No tasks yet</h3>
+
+                        <p>
+                            Add your first task above to get started.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        <p>TaskFlow — Built with HTML, CSS & JavaScript</p>
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
