@@ -56,7 +56,7 @@ TaskFlow can be installed as a Progressive Web App on supported browsers and dev
 
 ## 👩‍💻 Developer
 
-**Pakeeza Mansoor**
+**Pakeeza**
 
 GitHub: [@maharana3002-del](https://github.com/maharana3002-del)
 
