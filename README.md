@@ -22,6 +22,17 @@ A modern and responsive task management web app designed to help users organize,
 - 📲 Progressive Web App (PWA) support
 - 💾 Local storage for task data
 
+  ## 📸 Screenshots
+
+### Main Dashboard
+![TaskFlow Main Dashboard](taskflow-main.png)
+
+### Task Management
+![TaskFlow Task Management](taskflow-tasks.png)
+
+### Dark Mode
+![TaskFlow Dark Mode](taskflow-dark.png)
+
 ## 🛠️ Technologies Used
 
 - HTML5
