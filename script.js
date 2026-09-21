@@ -539,3 +539,152 @@ sortTasks.addEventListener("change", function () {
 });
 
 renderTasks();
+// ============================================================
+// TaskFlow — Notifications & Service Worker
+// ============================================================
+
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker
+            .register("./sw.js")
+            .then(() => {
+                console.log("TaskFlow service worker registered.");
+            })
+            .catch((error) => {
+                console.error("Service worker registration failed:", error);
+            });
+    });
+}
+
+async function requestNotificationPermission() {
+    if (!("Notification" in window)) {
+        console.log("This browser does not support notifications.");
+        return;
+    }
+
+    if (Notification.permission === "default") {
+        const permission = await Notification.requestPermission();
+
+        if (permission === "granted") {
+            console.log("TaskFlow notifications enabled.");
+        } else {
+            console.log("TaskFlow notifications were not enabled.");
+        }
+    }
+}
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        requestNotificationPermission();
+    }, 1500);
+});
+async function testTaskFlowNotification() {
+    if (Notification.permission !== "granted") {
+        console.log("Notification permission not granted.");
+        return;
+    }
+
+    const registration = await navigator.serviceWorker.ready;
+
+    registration.showNotification("TaskFlow", {
+        body: "🔔 Notifications are working!",
+        icon: "./icons/icon-192.png",
+        badge: "./icons/icon-192.png"
+    });
+}
+
+window.testTaskFlowNotification = testTaskFlowNotification;
+
+// ============================================================
+// TaskFlow — Automatic Due-Date Reminder
+// ============================================================
+
+// ============================================================
+// TaskFlow — Automatic Due-Date Reminder
+// ============================================================
+
+function checkTaskReminders() {
+
+    if (!("Notification" in window)) {
+        return;
+    }
+
+    if (Notification.permission !== "granted") {
+        return;
+    }
+
+    // Get the REAL TaskFlow tasks
+    const tasks = JSON.parse(
+        localStorage.getItem("taskflowTasks")
+    ) || [];
+
+    const today = new Date();
+
+    const todayString =
+        today.getFullYear() +
+        "-" +
+        String(today.getMonth() + 1).padStart(2, "0") +
+        "-" +
+        String(today.getDate()).padStart(2, "0");
+
+    let changed = false;
+
+    tasks.forEach(task => {
+
+        // Ignore tasks without a due date
+        if (!task.dueDate) {
+            return;
+        }
+
+        // Ignore completed tasks
+        if (task.completed) {
+            return;
+        }
+
+        // Only remind on the due date
+        if (task.dueDate === todayString) {
+
+            // Prevent the same task from notifying repeatedly
+            if (task.reminderSent) {
+                return;
+            }
+
+            navigator.serviceWorker.ready.then(registration => {
+
+                registration.showNotification("TaskFlow Reminder", {
+                    body: `⏰ "${task.title}" is due today!`,
+                    icon: "./icons/icon-192.png",
+                    badge: "./icons/icon-192.png",
+                    tag: `task-${task.id}`
+                });
+
+            });
+
+            task.reminderSent = true;
+            changed = true;
+        }
+    });
+
+    // Save reminder status
+    if (changed) {
+        localStorage.setItem(
+            "taskflowTasks",
+            JSON.stringify(tasks)
+        );
+    }
+}
+
+
+// Check when the app opens
+window.addEventListener("load", () => {
+
+    setTimeout(() => {
+        checkTaskReminders();
+    }, 2000);
+
+});
+
+
+// Check every 30 seconds while the app is open
+setInterval(() => {
+    checkTaskReminders();
+}, 30000);
